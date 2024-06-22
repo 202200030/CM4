@@ -18,11 +18,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0
+  google_maps_flutter: ^2.0.10
   flutter_native_splash: ^2.0.6
 
 flutter:
   uses-material-design: true
-
   assets:
     - assets/background.png
     - assets/chita.png
