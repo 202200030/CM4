@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'sporty_home_page.dart';
+import 'createAccount_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -93,7 +94,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text("Don't have an account ?"),
                   TextButton(
                     onPressed: () {
-                      // Registo
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => CreateAccountScreen()),
+                      );
                     },
                     child: Text(
                       'Sign up',

@@ -43,4 +43,10 @@ flutter:
     - assets/helmet.png
     - assets/sunglasses.png
     - assets/hat.png
- 
+    - assets/Workouts_Assests/caminhada.png
+    - assets/Workouts_Assests/corrida.png
+    - assets/Workouts_Assests/cycling.png
+    - assets/Workouts_Assests/gym.png
+    - assets/Workouts_Assests/desportos.png
+    - assets/Workouts_Assests/basketball.png
+    - assets/Workouts_Assests/free_training.png
