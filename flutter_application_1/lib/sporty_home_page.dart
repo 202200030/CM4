@@ -126,9 +126,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
                               child: IconButton(
                                 icon: Image.asset('assets/flag.png'),
                                 iconSize: 100,
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/workouts');
-                                },
+                                onPressed: () {Navigator.pushNamed(context, '/workouts');},
                               ),
                             ),
                           ],
