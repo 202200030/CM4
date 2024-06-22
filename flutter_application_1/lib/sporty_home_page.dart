@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
 import 'sideMenu/side_menu.dart';
@@ -11,11 +12,15 @@ class _SportyHomePageState extends State<SportyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   String _stepCountValue = '0000';
   late Stream<StepCount> _stepCountStream;
+  int _lifeBar = 100;
+  Timer? _lifeTimer;
+  int _previousSteps = 0;
 
   @override
   void initState() {
     super.initState();
     _initPedometer();
+    _resetLife();
   }
 
   void _initPedometer() {
@@ -25,12 +30,67 @@ class _SportyHomePageState extends State<SportyHomePage> {
 
   void _onStepCount(StepCount event) {
     setState(() {
-      _stepCountValue = event.steps.toString().padLeft(4, '0');
+      int steps = event.steps;
+      _stepCountValue = steps.toString().padLeft(4, '0');
+      if (steps > _previousSteps) {
+        _increaseLife();
+      }
+      _previousSteps = steps;
     });
   }
 
   void _onStepCountError(error) {
     print('Step Count Error: $error');
+  }
+
+  void _resetLife() {
+    _lifeTimer?.cancel();
+    setState(() {
+      _lifeBar = 100;
+    });
+
+    _lifeTimer = Timer.periodic(Duration(seconds: 5), (timer) {
+      setState(() {
+        _decreaseLife();
+      });
+    });
+  }
+
+  void _increaseLife() {
+    setState(() {
+      _lifeBar = (_lifeBar + 10).clamp(0, 100);
+    });
+  }
+
+  void _decreaseLife() {
+    setState(() {
+      _lifeBar = (_lifeBar - 5).clamp(0, 100);
+      if (_lifeBar <= 0) {
+        _lifeTimer?.cancel();
+        _showDeathMessage();
+      }
+    });
+  }
+
+  void _showDeathMessage() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(" A Chita Faleceu"),
+          content: Text("A chita morreu por falta de atividade."),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _resetLife();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -48,6 +108,11 @@ class _SportyHomePageState extends State<SportyHomePage> {
                 fit: BoxFit.cover,
               ),
             ),
+          ),
+          Positioned(
+            top: 65,
+            left: 50, 
+            child: _buildLifeBar(),
           ),
           Column(
             children: [
@@ -118,6 +183,35 @@ class _SportyHomePageState extends State<SportyHomePage> {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildLifeBar() {
+    return Column(
+      children: [
+        Container(
+          width: 20,
+          height: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(color: Colors.black, width: 2),
+            color: Colors.white,
+          ),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Container(
+                width: 20,
+                height: (100 * _lifeBar / 100).clamp(0, 100),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: _lifeBar > 30 ? Colors.green : Colors.red,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
