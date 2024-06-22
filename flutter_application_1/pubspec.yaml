@@ -1,7 +1,6 @@
 name: sporty_application
 description: A new Flutter project.
 
-
 publish_to: 'none'
 
 version: 0.1.0
@@ -12,8 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-
+  pedometer: ^3.0.0
   font_awesome_flutter: ^10.1.0
 
 dev_dependencies:
@@ -22,12 +20,12 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   google_maps_flutter: ^2.0.10
 
+  flutter_native_splash: ^2.0.6
+
+
 flutter:
   uses-material-design: true
 
-
-
-# Assets
   assets:
     - assets/background.png
     - assets/chita.png
@@ -51,3 +49,9 @@ flutter:
     - assets/Workouts_Assests/desportos.png
     - assets/Workouts_Assests/basketball.png
     - assets/Workouts_Assests/free_training.png
+
+flutter_native_splash:
+  color: "#42a5f5"
+  image: assets/logo.png
+  android: true
+  fullscreen: true
