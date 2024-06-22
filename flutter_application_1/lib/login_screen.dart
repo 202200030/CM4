@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'sporty_home_page.dart';
 import 'createAccount_screen.dart';
-
+import 'recoverPassword_screen.dart'; 
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -58,9 +58,17 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 10),
               Align(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  'Forget Password?',
-                  style: TextStyle(color: Colors.teal),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RecoverPasswordScreen()),
+                    );
+                  },
+                  child: Text(
+                    'Forget Password?',
+                    style: TextStyle(color: Colors.teal),
+                  ),
                 ),
               ),
               SizedBox(height: 20),
