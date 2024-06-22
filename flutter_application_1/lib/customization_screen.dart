@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'customization_provider.dart';
 
 class CustomizationScreen extends StatelessWidget {
   @override
@@ -13,9 +15,14 @@ class CustomizationScreen extends StatelessWidget {
               children: [
                 Image.asset('assets/hat.png', width: 40, height: 40),
                 SizedBox(width: 10),
-                Text('Customization', style: TextStyle(fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[700],)),
+                Text(
+                  'Customization',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.grey[700],
+                  ),
+                ),
               ],
             ),
           ),
@@ -26,12 +33,12 @@ class CustomizationScreen extends StatelessWidget {
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               children: [
-                _buildGridItem('assets/headphones.png'),
-                _buildGridItem('assets/cap.png'),
-                _buildGridItem('assets/glasses.png'),
-                _buildGridItem('assets/watch.png'),
-                _buildGridItem('assets/helmet.png'),
-                _buildGridItem('assets/sunglasses.png'),
+                _buildGridItem(context, 'assets/glasses.png', 'assets/chitaG.png'),
+                _buildGridItem(context, 'assets/sunglasses.png', 'assets/chitaG2.png'),
+                _buildGridItem(context, 'assets/watch.png', 'assets/chitaW.png'),
+                _buildGridItem(context, 'assets/headphones.png', 'assets/chitaH.png'),
+                _buildGridItem(context, 'assets/helmet.png', 'assets/chitaHel.png'),
+                _buildGridItem(context, 'assets/cap.png', 'assets/chitaCap.png'),
               ],
             ),
           ),
@@ -40,10 +47,16 @@ class CustomizationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGridItem(String assetPath) {
-    return Card(
-      child: Center(
-        child: Image.asset(assetPath, fit: BoxFit.cover),
+  Widget _buildGridItem(BuildContext context, String assetPath, String cheetahImagePath) {
+    return GestureDetector(
+      onTap: () {
+        Provider.of<CustomizationProvider>(context, listen: false)
+            .updateCheetahImage(cheetahImagePath);
+      },
+      child: Card(
+        child: Center(
+          child: Image.asset(assetPath, fit: BoxFit.cover),
+        ),
       ),
     );
   }
