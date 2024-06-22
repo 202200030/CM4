@@ -4,25 +4,18 @@ class CustomizationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.teal,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: Text('Sporty', style: TextStyle(fontSize: 24)),
-      ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset('assets/hat.png', width: 40, height: 40),
                 SizedBox(width: 10),
-                Text('Customize', style: TextStyle(fontSize: 24)),
+                Text('Customization', style: TextStyle(fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[700],)),
               ],
             ),
           ),

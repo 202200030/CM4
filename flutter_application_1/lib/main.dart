@@ -79,7 +79,7 @@ class _BasePageState extends State<BasePage> {
             label: 'Workouts',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.emoji_events),
+            icon: Icon(Icons.emoji_events_rounded),
             label: 'Trophies',
           ),
           BottomNavigationBarItem(

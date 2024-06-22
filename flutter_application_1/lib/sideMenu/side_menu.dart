@@ -11,12 +11,12 @@ class SideMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: Color(0xFF00D6A3),
+        color: Colors.teal,
         child: Column(
           children: <Widget>[
             Container(
               height: 150,
-              color: Color(0xFF00D6A3),
+              color: Colors.teal,
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -27,7 +27,7 @@ class SideMenu extends StatelessWidget {
                       child: Icon(
                         Icons.person,
                         size: 30,
-                        color: Color(0xFF00D6A3),
+                        color: Colors.teal,
                       ),
                     ),
                     SizedBox(height: 10),
@@ -81,7 +81,7 @@ class SideMenu extends StatelessWidget {
               padding: EdgeInsets.all(10),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF00D6A3),
+                  backgroundColor: Colors.teal,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -114,7 +114,7 @@ class SideMenu extends StatelessWidget {
     required GestureTapCallback onTap,
   }) {
     return ListTile(
-      leading: Icon(icon, color: Color(0xFF00D6A3)),
+      leading: Icon(icon, color:Colors.teal),
       title: Text(
         text,
         style: TextStyle(

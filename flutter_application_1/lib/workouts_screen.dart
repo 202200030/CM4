@@ -4,7 +4,6 @@ class WorkoutsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -17,30 +16,6 @@ class WorkoutsPage extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  AppBar buildAppBar(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        icon: Icon(Icons.arrow_back, color: Colors.white),
-        onPressed: () => Navigator.of(context).pop(),
-      ),
-      title: Row(
-        children: [
-          Text(
-            'Sporty',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(width: 5),
-          Image.asset('assets/logo.png', width: 35),
-        ],
-      ),
-      backgroundColor: Colors.teal,
     );
   }
 
@@ -120,4 +95,3 @@ class WorkoutItem extends StatelessWidget {
     );
   }
 }
-
