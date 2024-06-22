@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
 import 'sideMenu/side_menu.dart';
+import 'customization_provider.dart';
 
 class SportyHomePage extends StatefulWidget {
   @override
@@ -35,6 +37,8 @@ class _SportyHomePageState extends State<SportyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final cheetahImage = Provider.of<CustomizationProvider>(context).cheetahImage;
+
     return Scaffold(
       key: _scaffoldKey,
       drawer: SideMenu(),
@@ -86,7 +90,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset('assets/chita.png', width: 350),
+                      Image.asset(cheetahImage, width: 350),
                       SizedBox(height: 20),
                       Container(
                         decoration: BoxDecoration(

@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^6.0.0
   pedometer: ^3.0.0
   font_awesome_flutter: ^10.1.0
 
@@ -46,6 +47,12 @@ flutter:
     - assets/Workouts_Assests/desportos.png
     - assets/Workouts_Assests/basketball.png
     - assets/Workouts_Assests/free_training.png
+    - assets/chitaCap.png
+    - assets/chitaG.png
+    - assets/chitaG2.png
+    - assets/chitaH.png
+    - assets/chitaHel.png
+    - assets/chitaW.png
 
 flutter_native_splash:
   color: "#42a5f5"

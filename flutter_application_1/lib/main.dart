@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'sideMenu/side_menu.dart';
-import 'credits_screen.dart';
-import 'history_screen.dart';
+import 'customization_provider.dart';
 import 'customization_screen.dart';
 import 'workouts_screen.dart';
 import 'achievements_screen.dart';
 import 'sporty_home_page.dart';
+import 'history_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,15 +15,18 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BasePage(initialIndex: 0),
-      routes: {
-        '/home': (context) => BasePage(initialIndex: 0),
-        '/history': (context) => BasePage(initialIndex: 1),
-        '/achievements': (context) => BasePage(initialIndex: 2),
-        '/customize': (context) => BasePage(initialIndex: 3),
-        '/workouts': (context) => BasePage(initialIndex: 4),
-      },
+    return ChangeNotifierProvider(
+      create: (_) => CustomizationProvider(),
+      child: MaterialApp(
+        home: BasePage(initialIndex: 0),
+        routes: {
+          '/home': (context) => BasePage(initialIndex: 0),
+          '/history': (context) => BasePage(initialIndex: 1),
+          '/achievements': (context) => BasePage(initialIndex: 2),
+          '/customize': (context) => BasePage(initialIndex: 3),
+          '/workouts': (context) => BasePage(initialIndex: 4),
+        },
+      ),
     );
   }
 }
