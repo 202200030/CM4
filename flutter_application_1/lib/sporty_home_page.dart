@@ -1,8 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:pedometer/pedometer.dart';
 import 'sideMenu/side_menu.dart';
 
-class SportyHomePage extends StatelessWidget {
+class SportyHomePage extends StatefulWidget {
+  @override
+  _SportyHomePageState createState() => _SportyHomePageState();
+}
+
+class _SportyHomePageState extends State<SportyHomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  String _stepCountValue = '0000';
+  late Stream<StepCount> _stepCountStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _initPedometer();
+  }
+
+  void _initPedometer() {
+    _stepCountStream = Pedometer.stepCountStream;
+    _stepCountStream.listen(_onStepCount).onError(_onStepCountError);
+  }
+
+  void _onStepCount(StepCount event) {
+    setState(() {
+      _stepCountValue = event.steps.toString().padLeft(4, '0');
+    });
+  }
+
+  void _onStepCountError(error) {
+    print('Step Count Error: $error');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +87,29 @@ class SportyHomePage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Image.asset('assets/chita.png', width: 350),
+                      SizedBox(height: 20),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.8),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.directions_walk, color: Colors.teal, size: 30),
+                            SizedBox(width: 10),
+                            Text(
+                              'P: $_stepCountValue',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.teal,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

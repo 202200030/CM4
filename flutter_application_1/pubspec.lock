@@ -110,7 +110,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
-
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -119,7 +118,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.19"
-
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -138,7 +136,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "10.7.0"
-
   google_maps:
     dependency: transitive
     description:
@@ -187,7 +184,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.8"
-
   html:
     dependency: transitive
     description:
@@ -204,7 +200,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.2.0"
-
   js:
     dependency: transitive
     description:
@@ -221,7 +216,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
-
   leak_tracker:
     dependency: transitive
     description:
@@ -302,7 +296,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.2"
-
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -412,7 +405,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "13.0.0"
-
   web:
     dependency: transitive
     description:
@@ -421,7 +413,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.1"
-
   xml:
     dependency: transitive
     description:
@@ -441,4 +432,3 @@ packages:
 sdks:
   dart: ">=3.3.0 <4.0.0"
   flutter: ">=3.19.0"
-
