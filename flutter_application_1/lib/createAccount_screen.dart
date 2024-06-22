@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'sporty_home_page.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   @override
@@ -14,8 +15,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      // Aqui você pode adicionar a lógica para criar a conta do usuário
       print('Nome: $_name, Email: $_email, Senha: $_password');
+      
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => SportyHomePage()),
+      );
     }
   }
 
