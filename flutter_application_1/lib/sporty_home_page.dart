@@ -88,7 +88,9 @@ class _SportyHomePageState extends State<SportyHomePage> {
                               child: IconButton(
                                 icon: Image.asset('assets/megafone.png'),
                                 iconSize: 100,
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/credits');
+                                },
                               ),
                             ),
                             Container(

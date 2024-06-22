@@ -4,6 +4,7 @@ import 'sporty_home_page.dart';
 import 'customization_screen.dart';
 import 'createAccount_screen.dart';
 import 'recoverPassword_screen.dart';
+import 'credits_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/home', 
+      initialRoute: '/login', 
       routes: {
 
         '/login': (context) => LoginScreen(), 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         '/customize': (context) => CustomizationScreen(),
         '/register': (context) => CreateAccountScreen(),
         '/recoverPass': (context) => RecoverPasswordScreen(),
+        '/credits': (context) => CreditsScreen(),
       },
     );
   }
