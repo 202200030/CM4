@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sporty_application/workouts_page.dart';
 import 'login_screen.dart';
 import 'sporty_home_page.dart';
 import 'customization_screen.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(), 
         '/home': (context) => SportyHomePage(),
         '/customize': (context) => CustomizationScreen(),
+        '/workouts':(context) => WorkoutsPage(),
       },
     );
   }
