@@ -30,13 +30,17 @@ class _WorkoutInProgressScreenState extends State<WorkoutInProgressScreen> {
         title: Text('Workout in Progress'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // This part will push the map down
+          Expanded(
+            flex: 1,
+            child: Container(),
+          ),
+          // This part will contain the map
           Expanded(
             flex: 3,
-            child: Container(
-              padding: EdgeInsets.all(8.0),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: GoogleMap(
                 onMapCreated: _onMapCreated,
                 initialCameraPosition: CameraPosition(
@@ -46,6 +50,7 @@ class _WorkoutInProgressScreenState extends State<WorkoutInProgressScreen> {
               ),
             ),
           ),
+          // This part will contain the timer and buttons
           Expanded(
             flex: 1,
             child: Column(
