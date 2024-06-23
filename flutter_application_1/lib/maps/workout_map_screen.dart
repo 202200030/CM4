@@ -8,6 +8,7 @@ import '../workouts_screen.dart'; // Import your WorkoutsScreen widget here
 class HomeMap extends StatefulWidget {
   const HomeMap({Key? key}) : super(key: key);
 
+// mapas
   @override
   State<HomeMap> createState() => _HomeMapState();
 }
