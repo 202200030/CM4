@@ -8,7 +8,8 @@ import 'achievements_screen.dart';
 import 'sporty_home_page.dart';
 import 'history_screen.dart';
 import 'splash_screen.dart';
-import 'base_page.dart'; 
+import 'base_page.dart';
+import 'notification_service.dart';
 
 void main() {
   runApp(MyApp());
