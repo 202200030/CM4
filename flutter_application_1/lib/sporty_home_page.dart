@@ -2,11 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
-import 'package:sensors_plus/sensors_plus.dart';
 import 'sideMenu/side_menu.dart';
 import 'customization_provider.dart';
-import 'notification_service.dart';
-import 'accelerometer_service.dart';
 
 class SportyHomePage extends StatefulWidget {
   @override
@@ -20,16 +17,10 @@ class _SportyHomePageState extends State<SportyHomePage> {
   int _lifeBar = 100;
   Timer? _lifeTimer;
   int _previousSteps = 0;
-  late NotificationService _notificationService;
-  late AccelerometerService _accelerometerService;
 
   @override
   void initState() {
     super.initState();
-    _notificationService = NotificationService();
-    _notificationService.init();
-    _accelerometerService = AccelerometerService();
-    _accelerometerService.listenToAccelerometer();
     _initPedometer();
     _resetLife();
   }
@@ -60,7 +51,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
       _lifeBar = 100;
     });
 
-    _lifeTimer = Timer.periodic(Duration(days: 1), (timer) {
+    _lifeTimer = Timer.periodic(Duration(days:1), (timer) {
       setState(() {
         _decreaseLife();
       });
@@ -124,7 +115,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
           ),
           Positioned(
             top: 65,
-            left: 50,
+            left: 50, 
             child: _buildLifeBar(),
           ),
           Column(

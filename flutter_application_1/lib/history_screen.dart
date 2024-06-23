@@ -53,7 +53,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    historyItems.sort((a, b) => b.date.compareTo(a.date)); 
+    historyItems.sort((a, b) => b.date.compareTo(a.date)); // Sort by date descending
 
     return Scaffold(
       body: Padding(
@@ -104,6 +104,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
   }
 
  Widget _buildHistoryList() {
+  // Sort historyItems by date descending
   historyItems.sort((a, b) => b.date.compareTo(a.date));
 
   DateTime? currentDate;
