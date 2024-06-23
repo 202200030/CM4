@@ -9,19 +9,20 @@ environment:
   sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
+  permission_handler: ^11.3.1
+  google_maps_flutter: ^2.6.1
+  google_maps_flutter_web: ^0.5.7
+  geolocator: ^7.6.2
   flutter:
     sdk: flutter
   provider: ^6.0.0
   pedometer: ^4.0.0
-  sensors_plus: ^2.0.0
   font_awesome_flutter: ^10.1.0
-  flutter_local_notifications: ^9.7.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
-  google_maps_flutter: ^2.0.10
+  flutter_lints: ^4.0.0
   flutter_native_splash: ^2.0.6
 
 flutter:
@@ -55,10 +56,6 @@ flutter:
     - assets/chitaH.png
     - assets/chitaHel.png
     - assets/chitaW.png
-    - assets/gold.png
-    - assets/silver.png
-    - assets/bronze.png
-
 
 flutter_native_splash:
   color: "#42a5f5"
