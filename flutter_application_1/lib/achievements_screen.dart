@@ -55,18 +55,18 @@ class AchievementsScreen extends StatelessWidget {
     return Expanded(
       child: GridView.count(
         crossAxisCount: 3,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        crossAxisSpacing: 7,
+        mainAxisSpacing: 0.5,
         children: [
-          AchievementItem('assets/gold.png', 'First Achievement'),
-          AchievementItem('assets/gold.png', 'Second Achievement'),
-          AchievementItem('assets/gold.png', 'Third Achievement'),
-          AchievementItem('assets/silver.png', 'Fourth Achievement'),
-          AchievementItem('assets/silver.png', 'Fifth Achievement'),
-          AchievementItem('assets/silver.png', 'Sixth Achievement'),
-          AchievementItem('assets/bronze.png', 'Seventh Achievement'),
-          AchievementItem('assets/bronze.png', 'Seventh Achievement'),
-          AchievementItem('assets/bronze.png', 'Seventh Achievement')
+          AchievementItem('assets/gold.png', '5 consecutive walks in a week'),
+          AchievementItem('assets/gold.png', '5 consecutive runs in a week'),
+          AchievementItem('assets/gold.png', '3 consecutive runs in a week'),
+          AchievementItem('assets/silver.png', '3 consecutive walks in a week'),
+          AchievementItem('assets/silver.png', 'First 15 km - Cycling'),
+          AchievementItem('assets/silver.png', 'First 15 km - Run'),
+          AchievementItem('assets/bronze.png', 'First 10 km - Run'),
+          AchievementItem('assets/bronze.png', 'First 5 km - Walk'),
+          AchievementItem('assets/bronze.png', 'First 5 km - Run')
         ],
       ),
     );
@@ -84,9 +84,10 @@ class AchievementItem extends StatelessWidget {
     return Column(
       children: [
         Image.asset(assetPath, width: 70),
-        SizedBox(height: 5),
+        SizedBox(height: 1), 
         Text(
           label,
+          textAlign: TextAlign.center, 
           style: TextStyle(
             fontSize: 16,
             color: Colors.grey[700],
