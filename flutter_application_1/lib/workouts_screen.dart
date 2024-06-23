@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'workout_in_progress_screen.dart'; // Import your workout in progress screen
+import 'workout_in_progress_screen.dart'; 
 
 class WorkoutsPage extends StatelessWidget {
   @override
@@ -13,7 +13,7 @@ class WorkoutsPage extends StatelessWidget {
             SizedBox(height: 20),
             buildCenteredText('Select your workout:'),
             SizedBox(height: 20),
-            buildWorkoutGrid(context), // Pass context to buildWorkoutGrid
+            buildWorkoutGrid(context), 
           ],
         ),
       ),
@@ -87,7 +87,7 @@ class WorkoutsPage extends StatelessWidget {
   }
 
   void _startWorkout(BuildContext context) {
-    Navigator.pop(context); // Close the modal
+    Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => WorkoutInProgressScreen()),

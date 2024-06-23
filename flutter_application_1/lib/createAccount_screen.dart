@@ -17,10 +17,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       _formKey.currentState!.save();
       print('Nome: $_name, Email: $_email, Senha: $_password');
       
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SportyHomePage()),
-      );
+      // Navegar para a tela inicial após criar conta
+      Navigator.pushReplacementNamed(context, '/home');
     }
   }
 

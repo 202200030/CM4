@@ -1,10 +1,10 @@
-// side_menu.dart
 import 'package:flutter/material.dart';
 import 'sideMenuPages/audio_settings.dart';
 import 'sideMenuPages/music_page.dart';
 import 'sideMenuPages/vibration_page.dart';
 import 'sideMenuPages/resources_page.dart';
 import 'sideMenuPages/help_page.dart';
+import 'package:sporty_application/login_screen.dart'; 
 
 class SideMenu extends StatelessWidget {
   @override
@@ -87,7 +87,10 @@ class SideMenu extends StatelessWidget {
                   ),
                 ),
                 onPressed: () {
-                  Navigator.of(context).pop(); // Close the drawer
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginScreen()),
+                  );
                 },
                 child: Text(
                   'Logout',
@@ -102,7 +105,7 @@ class SideMenu extends StatelessWidget {
   }
 
   void _navigateTo(BuildContext context, Widget page) {
-    Navigator.of(context).pop(); // Close the drawer
+    Navigator.of(context).pop(); 
     Navigator.of(context).push(
       MaterialPageRoute(builder: (context) => page),
     );
@@ -114,7 +117,7 @@ class SideMenu extends StatelessWidget {
     required GestureTapCallback onTap,
   }) {
     return ListTile(
-      leading: Icon(icon, color:Colors.teal),
+      leading: Icon(icon, color: Colors.teal),
       title: Text(
         text,
         style: TextStyle(

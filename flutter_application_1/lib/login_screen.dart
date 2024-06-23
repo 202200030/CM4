@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'sporty_home_page.dart';
+import 'base_page.dart';
 import 'createAccount_screen.dart';
-import 'recoverPassword_screen.dart'; 
+import 'recoverPassword_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -81,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   } else {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => SportyHomePage()),
+                      MaterialPageRoute(builder: (context) => BasePage(initialIndex: 0)),
                     );
                   }
                 },
@@ -99,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Don't have an account ?"),
+                  Text("Don't have an account?"),
                   TextButton(
                     onPressed: () {
                       Navigator.push(

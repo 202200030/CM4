@@ -1,4 +1,4 @@
-import 'dart:async'; // Import async library for Timer
+import 'dart:async'; 
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,7 +11,7 @@ class WorkoutInProgressScreen extends StatefulWidget {
 class _WorkoutInProgressScreenState extends State<WorkoutInProgressScreen> {
   Stopwatch _stopwatch = Stopwatch();
   bool _isRunning = false;
-  Timer? _timer; // Timer object for periodic UI updates
+  Timer? _timer; 
 
   late GoogleMapController _mapController;
   LatLng _initialCameraPosition = LatLng(37.422, -122.084);
@@ -19,7 +19,7 @@ class _WorkoutInProgressScreenState extends State<WorkoutInProgressScreen> {
   @override
   void dispose() {
     _stopwatch.stop();
-    _timer?.cancel(); // Cancel the timer when screen is disposed
+    _timer?.cancel(); 
     super.dispose();
   }
 
@@ -31,12 +31,10 @@ class _WorkoutInProgressScreenState extends State<WorkoutInProgressScreen> {
       ),
       body: Column(
         children: [
-          // This part will push the map down
           Expanded(
             flex: 1,
             child: Container(),
           ),
-          // This part will contain the map
           Expanded(
             flex: 3,
             child: Padding(
@@ -50,7 +48,6 @@ class _WorkoutInProgressScreenState extends State<WorkoutInProgressScreen> {
               ),
             ),
           ),
-          // This part will contain the timer and buttons
           Expanded(
             flex: 1,
             child: Column(
@@ -101,7 +98,6 @@ class _WorkoutInProgressScreenState extends State<WorkoutInProgressScreen> {
     _stopwatch.start();
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       setState(() {
-        // Update the UI with elapsed time
       });
     });
   }
@@ -111,13 +107,13 @@ class _WorkoutInProgressScreenState extends State<WorkoutInProgressScreen> {
       _isRunning = false;
     });
     _stopwatch.stop();
-    _timer?.cancel(); // Cancel the periodic timer updates
+    _timer?.cancel(); 
   }
 
   void _stopTimer() {
     _stopwatch.stop();
-    _timer?.cancel(); // Cancel the periodic timer updates
-    Navigator.pop(context); // Navigate back to previous screen
+    _timer?.cancel(); 
+    Navigator.pop(context); 
   }
 
   void _onMapCreated(GoogleMapController controller) {
