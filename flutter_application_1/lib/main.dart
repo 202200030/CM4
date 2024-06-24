@@ -9,6 +9,7 @@ import 'recover_password_screen.dart';
 import 'customization_provider.dart';
 import 'firebase_options.dart';
 import 'base_page.dart';
+import 'compass_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => BasePage(initialIndex: 0),
           '/createAccount': (context) => CreateAccountScreen(),
           '/recoverPassword': (context) => RecoverPasswordScreen(), 
+          '/compass': (context) => CompassScreen(),
         },
       ),
     );
