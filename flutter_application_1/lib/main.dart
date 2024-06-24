@@ -6,10 +6,10 @@ import 'package:sporty_application/maps/home_map_state.dart';
 import 'sideMenu/side_menu.dart';
 import 'customization_provider.dart';
 import 'customization_screen.dart';
-import 'workouts_screen.dart';
 import 'achievements_screen.dart';
 import 'sporty_home_page.dart';
 import 'history_screen.dart';
+import 'history_item.dart';
 import 'splash_screen.dart';
 import 'notification_service.dart';
 import 'firebase_options.dart';
@@ -55,7 +55,6 @@ class _BasePageState extends State<BasePage> {
 
   final List<Widget> _pages = [
     SportyHomePage(),
-    HistoryScreen(),
     HomeMap(),
     AchievementsScreen(),
     CustomizationScreen(),
@@ -84,10 +83,6 @@ class _BasePageState extends State<BasePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.route),
-            label: 'History',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map, size: 35),
