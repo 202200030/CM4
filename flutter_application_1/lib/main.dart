@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sporty_application/maps/workout_map_screen.dart';
+import 'package:sporty_application/maps/home_map_state.dart';
+import 'package:sporty_application/maps/home_map_state.dart';
 import 'sideMenu/side_menu.dart';
 import 'customization_provider.dart';
 import 'customization_screen.dart';
@@ -8,7 +9,6 @@ import 'workouts_screen.dart';
 import 'achievements_screen.dart';
 import 'sporty_home_page.dart';
 import 'history_screen.dart';
-import 'maps/workout_map_screen.dart';
 
 void main() {
   runApp(MyApp());
