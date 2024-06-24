@@ -1,14 +1,14 @@
-// running_logic.dart
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import '../history_item.dart'; // Import your HistoryItem class
 
 class RunningLogic {
   bool _isRunning = false;
   Stopwatch _stopwatch = Stopwatch();
   Timer? _timer;
   Duration _elapsedTime = Duration.zero;
+  double _distanceTraveled = 0.0;
 
   bool get isRunning => _isRunning;
   Duration get elapsedTime => _elapsedTime;
@@ -24,12 +24,34 @@ class RunningLogic {
     }
   }
 
-  void stopRun(VoidCallback setState) {
+  HistoryItem stopRun(VoidCallback setState, String type, String title, String subtitle, double distance) {
     if (_isRunning) {
       _stopwatch.stop();
       _timer?.cancel();
+      _elapsedTime = _stopwatch.elapsed;
+      _stopwatch.reset(); // Reset stopwatch
       _isRunning = false;
+      _distanceTraveled = distance;
+
+      // Create history item
+      HistoryItem historyItem = HistoryItem(
+        type: type,
+        title: title,
+        subtitle: subtitle,
+        date: DateTime.now(),
+        elapsedTime: _elapsedTime,
+        distance: _distanceTraveled,
+      );
+
+      setState();
+      return historyItem;
     }
+
+    throw StateError('Cannot stop run because it is not running.');
+  }
+
+  double getDistanceTraveled() {
+    return _distanceTraveled;
   }
 
   String getFormattedElapsedTime() {

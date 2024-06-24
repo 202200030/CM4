@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
-import 'running_logic.dart'; // Import your RunningLogic class
+import '../history_item.dart'; // Import HistoryItem class
+import '../history_screen.dart'; // Import HistoryScreen widget
+import 'running_logic.dart'; // Import RunningLogic class
 
 class HomeMap extends StatefulWidget {
   @override
@@ -18,11 +20,13 @@ class _HomeMapState extends State<HomeMap> {
   bool _isCameraInitialized = false;
   Position? _currentPosition;
   BitmapDescriptor? _customMarker;
-  Set<Marker> _markers = {};
   MapType _currentMapType = MapType.normal;
   String? _selectedWorkout;
 
   RunningLogic _runningLogic = RunningLogic(); // Instantiate RunningLogic
+  Set<Marker> _markers = {};
+  List<HistoryItem> _historyItems = []; // List to hold history items
+  double _distanceTraveled = 0.0; // Variable to track distance traveled
 
   @override
   void initState() {
@@ -101,6 +105,19 @@ class _HomeMapState extends State<HomeMap> {
 
   void _updateCameraAndMarker(Position position) {
     if (_isCameraInitialized) {
+      if (_runningLogic.isRunning) {
+        // Calculate distance from previous position to current position
+        if (_currentPosition != null) {
+          double distance = Geolocator.distanceBetween(
+            _currentPosition!.latitude,
+            _currentPosition!.longitude,
+            position.latitude,
+            position.longitude,
+          );
+          _distanceTraveled += distance;
+        }
+      }
+
       _mapController.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
@@ -162,99 +179,79 @@ class _HomeMapState extends State<HomeMap> {
   }
 
   Widget _buildBottomSheetContent() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildTitleRow(),
-          SizedBox(height: 20),
-          _buildCenteredText('Select your workout:'),
-          SizedBox(height: 20),
-          _buildWorkoutGrid(),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildTitleRow() {
-    return Center(
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset('assets/flag.png', width: 50),
-          SizedBox(width: 10),
-          Text(
-            'Workouts',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[700],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCenteredText(String text) {
-    return Center(
-      child: Text(
-        text,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-          color: Colors.grey[700],
+  return Column(
+    children: [
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Text(
+          'Workout Briefeing',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
-    );
-  }
-
-  Widget _buildWorkoutGrid() {
-    return Expanded(
-      child: GridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        children: [
-          _buildWorkoutItem('assets/Workouts_Assests/corrida.png'),
-          _buildWorkoutItem('assets/Workouts_Assests/caminhada.png'),
-        ],
+      Expanded(
+        child: ListView.builder(
+          itemCount: _historyItems.length,
+          itemBuilder: (context, index) {
+            HistoryItem item = _historyItems[index];
+            return ListTile(
+              leading: Icon(Icons.directions_run),
+              title: Text(item.type),
+              subtitle: Text('${item.distance.toStringAsFixed(2)} meters'),
+              trailing: Text(item.elapsedTime.inSeconds.toStringAsFixed(2)),
+              onTap: () {
+                // Handle tap on history item if needed
+              },
+            );
+          },
+        ),
       ),
-    );
-  }
+    ],
+  );
+}
 
-  Widget _buildWorkoutItem(String assetPath) {
-    return GestureDetector(
-      onTap: () {
-        _selectWorkout(assetPath);
-        Navigator.pop(context);
-      },
-      child: Column(
-        children: [
-          Image.asset(assetPath, width: 70),
-          SizedBox(height: 5),
-          Text(
-            _getWorkoutLabel(assetPath),
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.grey[700],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  String _getWorkoutLabel(String assetPath) {
-    return assetPath.replaceAll('assets/Workouts_Assests/', '').replaceAll('.png', '');
-  }
-
-  void _selectWorkout(String workoutImagePath) {
+  void _startRun() {
     setState(() {
-      _selectedWorkout = workoutImagePath;
+      _runningLogic.startRun(() {
+        setState(() {}); // Trigger rebuild to update UI
+      });
+      _distanceTraveled = 0.0; // Reset distance when starting a new run
     });
   }
+
+  void _stopRun() {
+  setState(() {
+    if (_runningLogic.isRunning) {
+      _runningLogic.stopRun(() {
+        setState(() {}); // Trigger rebuild to update UI
+      }, 'Running', 'Workout', 'Completed', _distanceTraveled);
+
+      // Create history item
+      HistoryItem historyItem = HistoryItem(
+        type: 'Running',
+        title: 'Workout',
+        subtitle: 'Completed',
+        date: DateTime.now(),
+        elapsedTime: _runningLogic.elapsedTime,
+        distance: _distanceTraveled,
+      );
+
+      // Add HistoryItem to historyItems list
+      _historyItems.add(historyItem);
+
+      // Show history as a bottom sheet
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.75,
+            child: _buildBottomSheetContent(),
+          );
+        },
+      );
+    }
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
@@ -334,7 +331,7 @@ class _HomeMapState extends State<HomeMap> {
                     right: 16,
                     child: FloatingActionButton(
                       onPressed: () {
-                        // Handle selected workout button press
+                        _showWorkoutsBottomSheet();
                       },
                       backgroundColor: Colors.teal,
                       child: Image.asset(_selectedWorkout!, width: 30, height: 30),
@@ -359,9 +356,9 @@ class _HomeMapState extends State<HomeMap> {
                                   FloatingActionButton.extended(
                                     onPressed: () {
                                       if (_runningLogic.isRunning) {
-                                        _runningLogic.stopRun(() => setState(() {}));
+                                        _stopRun();
                                       } else {
-                                        _runningLogic.startRun(() => setState(() {}));
+                                        _startRun();
                                       }
                                     },
                                     backgroundColor: _runningLogic.isRunning ? Colors.red : Colors.teal,
@@ -400,6 +397,14 @@ class _HomeMapState extends State<HomeMap> {
                                             ),
                                           )
                                         : SizedBox.shrink(),
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    'Distance: ${_distanceTraveled.toStringAsFixed(2)} meters',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ],
                               ),
