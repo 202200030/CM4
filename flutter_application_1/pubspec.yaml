@@ -18,12 +18,6 @@ dependencies:
   provider: ^6.0.0
   pedometer: ^4.0.0
   font_awesome_flutter: ^10.1.0
- firebase
-  flutter_local_notifications: ^9.7.0
-  firebase_core: ^2.32.0
-  firebase_analytics: ^10.3.2
-=======
- main
 
 dev_dependencies:
   flutter_test:
@@ -62,12 +56,6 @@ flutter:
     - assets/chitaH.png
     - assets/chitaHel.png
     - assets/chitaW.png
-firebase
-    - assets/gold.png
-    - assets/silver.png
-    - assets/bronze.png
-=======
- main
 
 flutter_native_splash:
   color: "#42a5f5"
