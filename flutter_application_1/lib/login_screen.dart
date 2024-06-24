@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password: passwordController.text,
       );
 
-      Navigator.pushReplacementNamed(context, '/home'); // Navega para a SportyHomePage
+      Navigator.pushReplacementNamed(context, '/home'); 
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorText = e.message!;
