@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'sideMenu/side_menu.dart';
 import 'customization_provider.dart';
@@ -11,7 +12,9 @@ import 'splash_screen.dart';
 import 'base_page.dart';
 import 'notification_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
