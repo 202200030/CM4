@@ -48,7 +48,6 @@ class _BasePageState extends State<BasePage> {
 
   final List<Widget> _pages = [
     SportyHomePage(),
-    HistoryScreen(),
     HomeMap(),
     AchievementsScreen(),
     CustomizationScreen(),
@@ -77,10 +76,6 @@ class _BasePageState extends State<BasePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.route),
-            label: 'History',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map, size: 35),
