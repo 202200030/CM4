@@ -21,10 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
         password: passwordController.text,
       );
 
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => BasePage(initialIndex: 0)),
-      );
+      Navigator.pushReplacementNamed(context, '/home'); // Navega para a SportyHomePage
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorText = e.message!;
@@ -80,10 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RecoverPasswordScreen()),
-                    );
+                    Navigator.pushNamed(context, '/recoverPassword');
                   },
                   child: Text(
                     'Forget Password?',
@@ -111,10 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text("Don't have an account?"),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CreateAccountScreen()),
-                      );
+                      Navigator.pushNamed(context, '/createAccount');
                     },
                     child: Text(
                       'Sign up',

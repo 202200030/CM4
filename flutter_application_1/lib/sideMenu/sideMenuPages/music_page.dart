@@ -1,4 +1,3 @@
-// music_page.dart
 import 'package:flutter/material.dart';
 
 class MusicPage extends StatelessWidget {

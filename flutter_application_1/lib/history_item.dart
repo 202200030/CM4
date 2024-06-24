@@ -1,5 +1,3 @@
-  // history_item.dart
-
   class HistoryItem {
     final String type;
     final String title;

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'sporty_home_page.dart';
 import 'history_screen.dart';
-import 'home_map.dart'; 
+import 'maps/home_map_state.dart'; 
 import 'achievements_screen.dart';
 import 'customization_screen.dart';
+import 'sideMenu/side_menu.dart';
 
 class BasePage extends StatefulWidget {
   final int initialIndex;
@@ -40,9 +41,6 @@ class _BasePageState extends State<BasePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Sporty Application'),
-      ),
       drawer: SideMenu(), 
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(

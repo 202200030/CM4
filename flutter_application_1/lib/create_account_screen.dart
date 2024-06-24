@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'sporty_home_page.dart';
+import 'base_page.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   @override
@@ -13,24 +14,29 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   String _email = '';
   String _password = '';
   String _errorMessage = '';
+  bool _isLoading = false;
 
   void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      
+      setState(() {
+        _isLoading = true;
+      });
+
       try {
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _email,
           password: _password,
         );
-        
+
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => SportyHomePage()),
+          MaterialPageRoute(builder: (context) => BasePage(initialIndex: 0)),
         );
       } on FirebaseAuthException catch (e) {
         setState(() {
-          _errorMessage = e.message!;
+          _errorMessage = e.message ?? 'An error occurred. Please try again.';
+          _isLoading = false;
         });
       }
     }
@@ -40,7 +46,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
@@ -61,7 +67,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Nome',
+                    labelText: 'Name',
                     prefixIcon: Icon(Icons.person),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -69,7 +75,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor, insira seu nome';
+                      return 'Please enter your name';
                     }
                     return null;
                   },
@@ -86,9 +92,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       borderRadius: BorderRadius.circular(8.0),
                     ),
                   ),
+                  keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor, insira seu email';
+                      return 'Please enter your email';
+                    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                      return 'Please enter a valid email';
                     }
                     return null;
                   },
@@ -99,7 +108,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 SizedBox(height: 20),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Senha',
+                    labelText: 'Password',
                     prefixIcon: Icon(Icons.lock),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -108,7 +117,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                   obscureText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor, insira sua senha';
+                      return 'Please enter your password';
+                    } else if (value.length < 6) {
+                      return 'Password must be at least 6 characters';
                     }
                     return null;
                   },
@@ -123,18 +134,20 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     style: TextStyle(color: Colors.red),
                   ),
                 SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _submitForm,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.teal,
-                    padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                    textStyle: TextStyle(fontSize: 18),
-                  ),
-                  child: Text(
-                    'Create Account',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
+                _isLoading
+                    ? CircularProgressIndicator()
+                    : ElevatedButton(
+                        onPressed: _submitForm,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.teal,
+                          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                          textStyle: TextStyle(fontSize: 18),
+                        ),
+                        child: Text(
+                          'Create Account',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

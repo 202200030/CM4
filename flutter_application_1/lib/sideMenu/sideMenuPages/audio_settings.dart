@@ -1,4 +1,3 @@
-// audio_settings.dart
 import 'package:flutter/material.dart';
 
 class AudioSettingsPage extends StatelessWidget {

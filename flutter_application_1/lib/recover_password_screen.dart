@@ -12,9 +12,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      // Aqui você pode adicionar a lógica para enviar a solicitação de recuperação de senha
       print('Email: $_email');
-      // Exemplo: enviar solicitação de recuperação de senha
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Solicitação de recuperação de senha enviada')),
       );

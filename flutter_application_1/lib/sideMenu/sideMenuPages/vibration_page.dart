@@ -1,4 +1,3 @@
-// vibration_page.dart
 import 'package:flutter/material.dart';
 
 class VibrationPage extends StatelessWidget {
