@@ -19,6 +19,7 @@ dependencies:
   pedometer: ^4.0.0
   font_awesome_flutter: ^10.1.0
   shared_preferences: ^2.0.8
+  firebase_core: ^3.1.0
 
 dev_dependencies:
   flutter_test:

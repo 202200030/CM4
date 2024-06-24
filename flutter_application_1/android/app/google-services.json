@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "195070662504",
+    "project_id": "sporty-12bce",
+    "storage_bucket": "sporty-12bce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:195070662504:android:a427722d9efbf6f774a8dd",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application_1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAapZ_AmGPUMv9LtrJEQPv589Yw5lKUh0M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
