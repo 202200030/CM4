@@ -16,8 +16,8 @@ dependencies:
   sensors_plus: ^2.0.0
   font_awesome_flutter: ^10.1.0
   flutter_local_notifications: ^9.7.0
-  firebase_core: ^2.4.0
-  cloud_firestore: ^4.1.0
+  firebase_core: ^2.32.0
+  firebase_analytics: ^10.3.2
 
 dev_dependencies:
   flutter_test:
@@ -60,7 +60,6 @@ flutter:
     - assets/gold.png
     - assets/silver.png
     - assets/bronze.png
-
 
 flutter_native_splash:
   color: "#42a5f5"
