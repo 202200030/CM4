@@ -61,9 +61,13 @@ flutter {
     source '../..'
 }
 
+ firebase
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:33.1.1') // Adicione o Firebase BOM para gerenciar as dependências
     implementation 'com.google.firebase:firebase-analytics' // Adicione outras dependências do Firebase conforme necessário
 }
 
 apply plugin: 'com.google.gms.google-services' // Esta linha deve estar presente para aplicar o plugin
+=======
+dependencies {}
+ main
