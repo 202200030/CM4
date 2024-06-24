@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'sporty_home_page.dart';
 
 class CreateAccountScreen extends StatefulWidget {
@@ -11,16 +12,27 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   String _name = '';
   String _email = '';
   String _password = '';
+  String _errorMessage = '';
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print('Nome: $_name, Email: $_email, Senha: $_password');
       
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => SportyHomePage()),
-      );
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _email,
+          password: _password,
+        );
+        
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => SportyHomePage()),
+        );
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          _errorMessage = e.message!;
+        });
+      }
     }
   }
 
@@ -104,6 +116,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     _password = value!;
                   },
                 ),
+                SizedBox(height: 20),
+                if (_errorMessage.isNotEmpty)
+                  Text(
+                    _errorMessage,
+                    style: TextStyle(color: Colors.red),
+                  ),
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: _submitForm,

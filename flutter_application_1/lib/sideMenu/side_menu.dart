@@ -1,10 +1,11 @@
-// side_menu.dart
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'sideMenuPages/audio_settings.dart';
 import 'sideMenuPages/music_page.dart';
 import 'sideMenuPages/vibration_page.dart';
 import 'sideMenuPages/resources_page.dart';
 import 'sideMenuPages/help_page.dart';
+import '../login_screen.dart'; // Certifique-se de que o caminho está correto
 
 class SideMenu extends StatelessWidget {
   @override
@@ -86,8 +87,9 @@ class SideMenu extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the drawer
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pushReplacementNamed('/login');
                 },
                 child: Text(
                   'Logout',
@@ -114,7 +116,7 @@ class SideMenu extends StatelessWidget {
     required GestureTapCallback onTap,
   }) {
     return ListTile(
-      leading: Icon(icon, color:Colors.teal),
+      leading: Icon(icon, color: Colors.teal),
       title: Text(
         text,
         style: TextStyle(

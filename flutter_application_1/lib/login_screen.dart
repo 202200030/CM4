@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'sporty_home_page.dart';
-import 'createAccount_screen.dart';
-import 'recoverPassword_screen.dart'; 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'main.dart';
+import 'create_account_screen.dart';
+import 'recover_password_screen.dart';
+
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -11,6 +13,24 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   String errorText = '';
+
+  void _login() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => BasePage(initialIndex: 0)),
+      );
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorText = e.message!;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,18 +93,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {
-                  if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-                    setState(() {
-                      errorText = 'Email or Password cannot be empty';
-                    });
-                  } else {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => SportyHomePage()),
-                    );
-                  }
-                },
+                onPressed: _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.teal,
                   padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
@@ -99,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Don't have an account ?"),
+                  Text("Don't have an account?"),
                   TextButton(
                     onPressed: () {
                       Navigator.push(

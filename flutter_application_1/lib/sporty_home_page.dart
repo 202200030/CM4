@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
 import 'sideMenu/side_menu.dart';
 import 'customization_provider.dart';
-import 'notification_service.dart'; // Importar NotificationService
+import 'notification_service.dart'; 
 
 class SportyHomePage extends StatefulWidget {
   @override
@@ -18,13 +18,13 @@ class _SportyHomePageState extends State<SportyHomePage> {
   int _lifeBar = 100;
   Timer? _lifeTimer;
   int _previousSteps = 0;
-  late NotificationService _notificationService; // Instância de NotificationService
+  late NotificationService _notificationService; 
 
   @override
   void initState() {
     super.initState();
-    _notificationService = NotificationService(); // Inicializar NotificationService
-    _notificationService.init(); // Chamar init do NotificationService
+    _notificationService = NotificationService(); 
+    _notificationService.init(); 
     _initPedometer();
     _resetLife();
   }
@@ -72,7 +72,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
     setState(() {
       _lifeBar = (_lifeBar - 5).clamp(0, 100);
       if (_lifeBar <= 50) {
-        _notificationService.showNotification("O teu pet precisa de exercício", "A vida da tua chita está abaixo de 50%"); // Enviar notificação
+        _notificationService.showNotification("O teu pet precisa de exercício", "A vida da tua chita está abaixo de 50%"); 
       }
       if (_lifeBar <= 0) {
         _lifeTimer?.cancel();

@@ -2,21 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sporty_application/maps/home_map_state.dart';
-import 'package:sporty_application/maps/home_map_state.dart';
 import 'sideMenu/side_menu.dart';
 import 'customization_provider.dart';
 import 'customization_screen.dart';
 import 'achievements_screen.dart';
 import 'sporty_home_page.dart';
+import 'login_screen.dart';
 import 'history_screen.dart';
-import 'history_item.dart';
-import 'splash_screen.dart';
-import 'notification_service.dart';
 import 'firebase_options.dart';
 
-
-
-void main() async{
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(MyApp());
 }
@@ -27,8 +23,9 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => CustomizationProvider(),
       child: MaterialApp(
-        home: BasePage(initialIndex: 0),
+        home: BasePage(initialIndex: 0,), 
         routes: {
+          '/login': (context) => LoginScreen(),
           '/home': (context) => BasePage(initialIndex: 0),
           '/history': (context) => BasePage(initialIndex: 1),
           '/achievements': (context) => BasePage(initialIndex: 2),
@@ -56,9 +53,9 @@ class _BasePageState extends State<BasePage> {
   final List<Widget> _pages = [
     SportyHomePage(),
     HomeMap(),
+    HistoryScreen(),
     AchievementsScreen(),
     CustomizationScreen(),
-  
   ];
 
   @override
@@ -76,6 +73,10 @@ class _BasePageState extends State<BasePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Sporty Application'),
+      ),
+      drawer: SideMenu(),
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -87,6 +88,10 @@ class _BasePageState extends State<BasePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.map, size: 35),
             label: 'Map',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'History',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.emoji_events_rounded),

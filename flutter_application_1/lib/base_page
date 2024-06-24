@@ -1,8 +1,7 @@
-@ -1,74 +0,0 @@
 import 'package:flutter/material.dart';
 import 'sporty_home_page.dart';
 import 'history_screen.dart';
-import 'workouts_screen.dart';
+import 'home_map.dart'; // Certifique-se de que HomeMap está importado corretamente
 import 'achievements_screen.dart';
 import 'customization_screen.dart';
 
@@ -20,8 +19,8 @@ class _BasePageState extends State<BasePage> {
 
   final List<Widget> _pages = [
     SportyHomePage(),
+    HomeMap(), // Adicione HomeMap aqui
     HistoryScreen(),
-    WorkoutsPage(),
     AchievementsScreen(),
     CustomizationScreen(),
   ];
@@ -41,6 +40,10 @@ class _BasePageState extends State<BasePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Sporty Application'),
+      ),
+      drawer: SideMenu(), // Certifique-se de que SideMenu está importado corretamente
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -50,12 +53,12 @@ class _BasePageState extends State<BasePage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.route),
-            label: 'History',
+            icon: Icon(Icons.map, size: 35),
+            label: 'Map',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.sports_score_outlined, size: 35),
-            label: 'Workouts',
+            icon: Icon(Icons.history),
+            label: 'History',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.emoji_events_rounded),
