@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'sporty_home_page.dart';
 import 'history_screen.dart';
-import 'home_map.dart'; // Certifique-se de que HomeMap está importado corretamente
+import 'home_map.dart'; 
 import 'achievements_screen.dart';
 import 'customization_screen.dart';
 
@@ -19,7 +19,7 @@ class _BasePageState extends State<BasePage> {
 
   final List<Widget> _pages = [
     SportyHomePage(),
-    HomeMap(), // Adicione HomeMap aqui
+    HomeMap(), 
     HistoryScreen(),
     AchievementsScreen(),
     CustomizationScreen(),
@@ -43,7 +43,7 @@ class _BasePageState extends State<BasePage> {
       appBar: AppBar(
         title: Text('Sporty Application'),
       ),
-      drawer: SideMenu(), // Certifique-se de que SideMenu está importado corretamente
+      drawer: SideMenu(), 
       body: _pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

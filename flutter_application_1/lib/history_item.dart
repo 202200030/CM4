@@ -5,7 +5,7 @@
     final String title;
     final String subtitle;
     final DateTime date;
-    final Duration elapsedTime; // New field for elapsed time
+    final Duration elapsedTime; 
      double distance;
 
     HistoryItem({
@@ -13,7 +13,7 @@
       required this.title,
       required this.subtitle,
       required this.date,
-      required this.elapsedTime, // Added required parameter
+      required this.elapsedTime, 
       required this.distance,
     });
   }

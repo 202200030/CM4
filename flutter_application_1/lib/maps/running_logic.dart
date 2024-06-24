@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import '../history_item.dart'; // Import your HistoryItem class
+import '../history_item.dart'; 
 
 class RunningLogic {
   bool _isRunning = false;
@@ -29,11 +29,11 @@ class RunningLogic {
       _stopwatch.stop();
       _timer?.cancel();
       _elapsedTime = _stopwatch.elapsed;
-      _stopwatch.reset(); // Reset stopwatch
+      _stopwatch.reset(); 
       _isRunning = false;
       _distanceTraveled = distance;
 
-      // Create history item
+     
       HistoryItem historyItem = HistoryItem(
         type: type,
         title: title,

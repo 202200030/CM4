@@ -4,10 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:geolocator/geolocator.dart';
-import '../history_item.dart'; // Import HistoryItem class
-import '../history_screen.dart'; // Import HistoryScreen widget
-import 'running_logic.dart'; // Import RunningLogic class
-
+import '../history_item.dart'; 
+import '../history_screen.dart'; 
+import 'running_logic.dart'; 
 class HomeMap extends StatefulWidget {
   @override
   _HomeMapState createState() => _HomeMapState();
@@ -23,10 +22,10 @@ class _HomeMapState extends State<HomeMap> {
   MapType _currentMapType = MapType.normal;
   String? _selectedWorkout;
 
-  RunningLogic _runningLogic = RunningLogic(); // Instantiate RunningLogic
+  RunningLogic _runningLogic = RunningLogic(); 
   Set<Marker> _markers = {};
-  List<HistoryItem> _historyItems = []; // List to hold history items
-  double _distanceTraveled = 0.0; // Variable to track distance traveled
+  List<HistoryItem> _historyItems = []; 
+  double _distanceTraveled = 0.0; 
 
   @override
   void initState() {
@@ -53,7 +52,7 @@ class _HomeMapState extends State<HomeMap> {
     if (status.isGranted) {
       _initGeolocation();
     } else {
-      // Handle permission denial
+   
       print("Location permission denied");
     }
   }
@@ -106,7 +105,7 @@ class _HomeMapState extends State<HomeMap> {
   void _updateCameraAndMarker(Position position) {
     if (_isCameraInitialized) {
       if (_runningLogic.isRunning) {
-        // Calculate distance from previous position to current position
+       
         if (_currentPosition != null) {
           double distance = Geolocator.distanceBetween(
             _currentPosition!.latitude,
@@ -212,9 +211,9 @@ class _HomeMapState extends State<HomeMap> {
   void _startRun() {
     setState(() {
       _runningLogic.startRun(() {
-        setState(() {}); // Trigger rebuild to update UI
+        setState(() {}); 
       });
-      _distanceTraveled = 0.0; // Reset distance when starting a new run
+      _distanceTraveled = 0.0; 
     });
   }
 
@@ -222,10 +221,10 @@ class _HomeMapState extends State<HomeMap> {
   setState(() {
     if (_runningLogic.isRunning) {
       _runningLogic.stopRun(() {
-        setState(() {}); // Trigger rebuild to update UI
+        setState(() {}); 
       }, 'Running', 'Workout', 'Completed', _distanceTraveled);
 
-      // Create history item
+     
       HistoryItem historyItem = HistoryItem(
         type: 'Running',
         title: 'Workout',
@@ -235,10 +234,9 @@ class _HomeMapState extends State<HomeMap> {
         distance: _distanceTraveled,
       );
 
-      // Add HistoryItem to historyItems list
       _historyItems.add(historyItem);
 
-      // Show history as a bottom sheet
+      
       showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {

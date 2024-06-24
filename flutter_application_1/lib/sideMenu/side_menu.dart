@@ -5,7 +5,7 @@ import 'sideMenuPages/music_page.dart';
 import 'sideMenuPages/vibration_page.dart';
 import 'sideMenuPages/resources_page.dart';
 import 'sideMenuPages/help_page.dart';
-import '../login_screen.dart'; // Certifique-se de que o caminho está correto
+import '../login_screen.dart';
 
 class SideMenu extends StatelessWidget {
   @override
