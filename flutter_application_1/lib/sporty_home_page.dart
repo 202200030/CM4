@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
 import 'sideMenu/side_menu.dart';
 import 'customization_provider.dart';
+import 'notification_service.dart'; // Importar NotificationService
 
 class SportyHomePage extends StatefulWidget {
   @override
@@ -17,10 +18,13 @@ class _SportyHomePageState extends State<SportyHomePage> {
   int _lifeBar = 100;
   Timer? _lifeTimer;
   int _previousSteps = 0;
+  late NotificationService _notificationService; // Instância de NotificationService
 
   @override
   void initState() {
     super.initState();
+    _notificationService = NotificationService(); // Inicializar NotificationService
+    _notificationService.init(); // Chamar init do NotificationService
     _initPedometer();
     _resetLife();
   }
@@ -51,7 +55,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
       _lifeBar = 100;
     });
 
-    _lifeTimer = Timer.periodic(Duration(seconds: 2), (timer) {
+    _lifeTimer = Timer.periodic(Duration(days: 1), (timer) {
       setState(() {
         _decreaseLife();
       });
@@ -67,6 +71,9 @@ class _SportyHomePageState extends State<SportyHomePage> {
   void _decreaseLife() {
     setState(() {
       _lifeBar = (_lifeBar - 5).clamp(0, 100);
+      if (_lifeBar <= 50) {
+        _notificationService.showNotification("O teu pet precisa de exercício", "A vida da tua chita está abaixo de 50%"); // Enviar notificação
+      }
       if (_lifeBar <= 0) {
         _lifeTimer?.cancel();
         _showDeathMessage();
@@ -79,7 +86,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(" A Chita Faleceu"),
+          title: Text("A Chita Faleceu"),
           content: Text("A chita morreu por falta de atividade."),
           actions: <Widget>[
             TextButton(
@@ -115,7 +122,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
           ),
           Positioned(
             top: 65,
-            left: 50, 
+            left: 50,
             child: _buildLifeBar(),
           ),
           Column(
