@@ -60,6 +60,9 @@ flutter:
     - assets/chitaH.png
     - assets/chitaHel.png
     - assets/chitaW.png
+    - assets/silver.png
+    - assets/bronze.png
+    - assets/gold.png
 
 flutter_native_splash:
   color: "#42a5f5"
