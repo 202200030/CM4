@@ -55,7 +55,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
       _lifeBar = 100;
     });
 
-    _lifeTimer = Timer.periodic(Duration(days: 1), (timer) {
+    _lifeTimer = Timer.periodic(Duration(seconds: 3), (timer) {
       setState(() {
         _decreaseLife();
       });
