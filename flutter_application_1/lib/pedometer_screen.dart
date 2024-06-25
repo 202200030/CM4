@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PedometerScreen extends StatefulWidget {
   @override
@@ -13,17 +14,35 @@ class _PedometerScreenState extends State<PedometerScreen> {
   @override
   void initState() {
     super.initState();
-    _initPedometer();
+    _requestPermissions();
+  }
+
+  void _requestPermissions() async {
+    if (await Permission.activityRecognition.request().isGranted) {
+      _initPedometer();
+    } else {
+      setState(() {
+        _stepCountValue = 'Permission denied';
+      });
+    }
   }
 
   void _initPedometer() {
     _stepCountStream = Pedometer.stepCountStream;
-    _stepCountStream.listen(_onStepCount);
+    _stepCountStream.listen(_onStepCount).onError(_onStepCountError);
   }
 
   void _onStepCount(StepCount event) {
+    print('Steps: ${event.steps}');
     setState(() {
       _stepCountValue = event.steps.toString();
+    });
+  }
+
+  void _onStepCountError(error) {
+    print('Step Count Error: $error');
+    setState(() {
+      _stepCountValue = 'Error: $error';
     });
   }
 

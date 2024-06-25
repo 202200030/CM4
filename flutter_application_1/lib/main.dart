@@ -10,6 +10,9 @@ import 'customization_provider.dart';
 import 'firebase_options.dart';
 import 'base_page.dart';
 import 'compass_screen.dart';
+import 'pedometer_screen.dart';
+
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
