@@ -198,7 +198,6 @@ class _HomeMapState extends State<HomeMap> {
               subtitle: Text('${item.distance.toStringAsFixed(2)} meters'),
               trailing: Text(item.elapsedTime.inSeconds.toStringAsFixed(2)),
               onTap: () {
-                // Handle tap on history item if needed
               },
             );
           },
