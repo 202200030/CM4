@@ -4,7 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
 import 'sideMenu/side_menu.dart';
 import 'customization_provider.dart';
-import 'notification_service.dart'; 
+import 'notification_service.dart';
+import 'package:workmanager/workmanager.dart';
 
 class SportyHomePage extends StatefulWidget {
   @override
@@ -18,13 +19,13 @@ class _SportyHomePageState extends State<SportyHomePage> {
   int _lifeBar = 100;
   Timer? _lifeTimer;
   int _previousSteps = 0;
-  late NotificationService _notificationService; 
+  late NotificationService _notificationService;
 
   @override
   void initState() {
     super.initState();
-    _notificationService = NotificationService(); 
-    _notificationService.init(); 
+    _notificationService = NotificationService();
+    _notificationService.init();
     _initPedometer();
     _resetLife();
   }
@@ -72,13 +73,22 @@ class _SportyHomePageState extends State<SportyHomePage> {
     setState(() {
       _lifeBar = (_lifeBar - 5).clamp(0, 100);
       if (_lifeBar <= 50) {
-        _notificationService.showNotification("O teu pet precisa de exercício", "A vida da tua chita está abaixo de 50%"); 
+        _notificationService.showNotification("O teu pet precisa de exercício", "A vida da tua chita está abaixo de 50%");
       }
       if (_lifeBar <= 0) {
         _lifeTimer?.cancel();
         _showDeathMessage();
+        _scheduleNotification();
       }
     });
+  }
+
+  void _scheduleNotification() {
+    Workmanager().registerOneOffTask(
+      "2",
+      "simpleTask",
+      initialDelay: Duration(seconds: 5),
+    );
   }
 
   void _showDeathMessage() {
@@ -216,13 +226,21 @@ class _SportyHomePageState extends State<SportyHomePage> {
                 height: (100 * _lifeBar / 100).clamp(0, 100),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: _lifeBar > 30 ? Colors.green : Colors.red,
+                  color: Colors.red,
                 ),
               ),
             ],
           ),
         ),
+        SizedBox(height: 5),
+        Text('Vida', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    _lifeTimer?.cancel();
+    super.dispose();
   }
 }

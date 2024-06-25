@@ -4,19 +4,32 @@ import 'package:firebase_core/firebase_core.dart';
 import 'splash_screen.dart';
 import 'login_screen.dart';
 import 'sporty_home_page.dart';
-import 'create_account_screen.dart'; 
-import 'recover_password_screen.dart'; 
+import 'create_account_screen.dart';
+import 'recover_password_screen.dart';
 import 'customization_provider.dart';
 import 'firebase_options.dart';
 import 'base_page.dart';
 import 'compass_screen.dart';
 import 'pedometer_screen.dart';
-
-
+import 'notification_service.dart';
+import 'background_service.dart';
+import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  await Workmanager().initialize(
+    callbackDispatcher,
+    isInDebugMode: true,
+  );
+
+  await Workmanager().registerPeriodicTask(
+    "1",
+    "simplePeriodicTask",
+    frequency: Duration(hours: 1),
+  );
+
   runApp(MyApp());
 }
 
@@ -32,7 +45,7 @@ class MyApp extends StatelessWidget {
           '/login': (context) => LoginScreen(),
           '/home': (context) => BasePage(initialIndex: 0),
           '/createAccount': (context) => CreateAccountScreen(),
-          '/recoverPassword': (context) => RecoverPasswordScreen(), 
+          '/recoverPassword': (context) => RecoverPasswordScreen(),
           '/compass': (context) => CompassScreen(),
         },
       ),
