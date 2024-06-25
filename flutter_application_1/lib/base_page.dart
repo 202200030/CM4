@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
-import 'dart:math'; // Importar dart:math para usar sqrt
+import 'dart:math';
 import 'sporty_home_page.dart';
 import 'history_screen.dart';
 import 'maps/home_map_state.dart'; 
