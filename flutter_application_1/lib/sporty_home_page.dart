@@ -1,11 +1,10 @@
 import 'dart:async';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
 import 'sideMenu/side_menu.dart';
 import 'customization_provider.dart';
-import 'notification_service.dart';
-import 'package:workmanager/workmanager.dart';
 
 class SportyHomePage extends StatefulWidget {
   @override
@@ -19,16 +18,30 @@ class _SportyHomePageState extends State<SportyHomePage> {
   int _lifeBar = 100;
   Timer? _lifeTimer;
   int _previousSteps = 0;
-  late NotificationService _notificationService;
 
   @override
   void initState() {
     super.initState();
-    _notificationService = NotificationService();
-    _notificationService.init();
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
     _initPedometer();
     _resetLife();
+    triggerNotification();
   }
+
+  void triggerNotification() {
+  AwesomeNotifications().createNotification(
+    content: NotificationContent(
+      id: 0,
+      channelKey: 'basic_channel',
+      title: 'Bem-vindo',
+      body: 'Bem-vindo à aplicação Sporty!',
+    ),
+  );
+}
 
   void _initPedometer() {
     _stepCountStream = Pedometer.stepCountStream;
@@ -73,21 +86,23 @@ class _SportyHomePageState extends State<SportyHomePage> {
     setState(() {
       _lifeBar = (_lifeBar - 5).clamp(0, 100);
       if (_lifeBar <= 50) {
-        _notificationService.showNotification("O teu pet precisa de exercício", "A vida da tua chita está abaixo de 50%");
+        _showNotification("O teu pet precisa de exercício", "A vida da tua chita está abaixo de 50%");
       }
       if (_lifeBar <= 0) {
         _lifeTimer?.cancel();
         _showDeathMessage();
-        _scheduleNotification();
       }
     });
   }
 
-  void _scheduleNotification() {
-    Workmanager().registerOneOffTask(
-      "2",
-      "simpleTask",
-      initialDelay: Duration(seconds: 5),
+  void _showNotification(String title, String body) {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: 1,
+        channelKey: 'basic_channel',
+        title: title,
+        body: body,
+      ),
     );
   }
 

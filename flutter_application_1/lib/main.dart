@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,26 +12,38 @@ import 'firebase_options.dart';
 import 'base_page.dart';
 import 'compass_screen.dart';
 import 'pedometer_screen.dart';
-import 'notification_service.dart';
-import 'background_service.dart';
-import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  await Workmanager().initialize(
-    callbackDispatcher,
-    isInDebugMode: true,
+  AwesomeNotifications().initialize(
+    null,
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Basic notifications',
+        channelDescription: 'Notification channel for basic tests',
+        defaultColor: Color(0xFF9D50DD),
+        ledColor: Color(0xFF9D50DD),
+        playSound: true,
+        enableLights: true,
+        enableVibration: true,
+      ),
+    ],
+    debug: true,
   );
-
-  await Workmanager().registerPeriodicTask(
-    "1",
-    "simplePeriodicTask",
-    frequency: Duration(hours: 1),
-  );
-
   runApp(MyApp());
+}
+
+void triggerNotification() {
+  AwesomeNotifications().createNotification(
+    content: NotificationContent(
+      id: 0,
+      channelKey: 'basic_channel',
+      title: 'Bem-vindo',
+      body: 'Bem-vindo à aplicação Sporty!',
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
