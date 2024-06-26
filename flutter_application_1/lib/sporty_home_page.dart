@@ -91,6 +91,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
       if (_lifeBar <= 0) {
         _lifeTimer?.cancel();
         _showNotification("A Chita Faleceu", "A chita faleceu devido à falta de atividade física");
+        _showDeathMessage();
       }
     });
   }
@@ -103,6 +104,27 @@ class _SportyHomePageState extends State<SportyHomePage> {
         title: title,
         body: body,
       ),
+    );
+  }
+
+  void _showDeathMessage() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("A Chita Faleceu"),
+          content: Text("A chita faleceu devido à falta de atividade."),
+          actions: <Widget>[
+            TextButton(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _resetLife();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 
