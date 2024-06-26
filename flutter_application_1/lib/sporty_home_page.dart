@@ -33,15 +33,15 @@ class _SportyHomePageState extends State<SportyHomePage> {
   }
 
   void triggerNotification() {
-  AwesomeNotifications().createNotification(
-    content: NotificationContent(
-      id: 0,
-      channelKey: 'basic_channel',
-      title: 'Bem-vindo',
-      body: 'Bem-vindo à aplicação Sporty!',
-    ),
-  );
-}
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: 0,
+        channelKey: 'basic_channel',
+        title: 'Bem-vindo',
+        body: 'Bem-vindo à aplicação Sporty!',
+      ),
+    );
+  }
 
   void _initPedometer() {
     _stepCountStream = Pedometer.stepCountStream;
@@ -69,7 +69,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
       _lifeBar = 100;
     });
 
-    _lifeTimer = Timer.periodic(Duration(seconds: 3), (timer) {
+    _lifeTimer = Timer.periodic(Duration(seconds: 10), (timer) {
       setState(() {
         _decreaseLife();
       });
@@ -90,7 +90,7 @@ class _SportyHomePageState extends State<SportyHomePage> {
       }
       if (_lifeBar <= 0) {
         _lifeTimer?.cancel();
-        _showDeathMessage();
+        _showNotification("A Chita Faleceu", "A chita faleceu devido à falta de atividade física");
       }
     });
   }
@@ -103,27 +103,6 @@ class _SportyHomePageState extends State<SportyHomePage> {
         title: title,
         body: body,
       ),
-    );
-  }
-
-  void _showDeathMessage() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("A Chita Faleceu"),
-          content: Text("A chita morreu por falta de atividade."),
-          actions: <Widget>[
-            TextButton(
-              child: Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-                _resetLife();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 
@@ -241,14 +220,13 @@ class _SportyHomePageState extends State<SportyHomePage> {
                 height: (100 * _lifeBar / 100).clamp(0, 100),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.red,
+                  color: _lifeBar > 50 ? Colors.green : Colors.red,
                 ),
               ),
             ],
           ),
         ),
         SizedBox(height: 5),
-        Text('Vida', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
       ],
     );
   }
